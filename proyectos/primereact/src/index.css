@@ -1,0 +1,16 @@
+.content{
+    margin-left: 70px;
+    margin-top:70px;
+    margin-right: 60px;
+
+}
+
+/* Media Query para pantallas más pequeñas (teléfonos) */
+@media (max-width: 767px) {
+    .content {
+        margin-left: 0px;
+        margin-top:70px;
+        margin-right: 0px;
+    }
+  }
+  

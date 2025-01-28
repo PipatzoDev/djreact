@@ -1,0 +1,13 @@
+  
+.card-perso{
+  border-bottom: 2px solid #ff0000;
+  border-radius: 8px;
+  background:#3e3e3e;
+  box-shadow: 7px 10px 10px rgba(0, 0, 0, 0.5);
+  margin:20px;
+}
+.first-letter {
+  border-left: 2px solid red; /* Borde izquierdo rojo */
+  border-right: 2px solid red; /* Borde Derecho  rojo */
+}
+

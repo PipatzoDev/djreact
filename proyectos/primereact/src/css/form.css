@@ -1,0 +1,12 @@
+.hover-pipa{
+    border:none;
+  }
+  
+  .hover-pipa:hover{
+    border: 2px solid red; /* Borde izquierdo rojo */
+  }
+  .hover-pipa:focus{
+    border: 2px solid red; /* Borde Derecho  rojo */
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Añade una sombra verde */
+  }
+  

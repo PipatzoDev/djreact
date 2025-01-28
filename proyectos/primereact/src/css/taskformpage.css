@@ -1,0 +1,79 @@
+/* Estilos generales para el contenedor */
+.div-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Estilos para el contenedor del formulario */
+  .form-container {
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+.card-perso{
+    border-bottom: 2px solid #5eff00;
+    border-radius: 8px;
+    background:#3e3e3e;
+    box-shadow: 0 10px 5px rgba(0, 0, 0, 0.5);
+    margin:20px;
+}
+
+  /* Estilos para los campos de formulario */
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  
+  .form-control:focus {
+    border-color: #ff0000; /* Cambia el color del borde al hacer foco */
+    outline: none;
+  }
+  
+  /* Estilos para los textos de error */
+  .error-text {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilos para el botón guardar */
+  .save-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .save-button:hover {
+    background-color: #218838;
+  }
+  
+  /* Estilos para el botón eliminar */
+  .delete-button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #dc3545;  
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .delete-button:hover {
+    background-color: #c82333;
+  }
+  
