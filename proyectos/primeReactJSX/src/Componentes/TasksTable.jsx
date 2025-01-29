@@ -36,12 +36,12 @@ export default function TasksTable() {
     };
 
     const renderArchivo = (rowData) => {
-        // Verificamos si 'archivo' contiene el prefijo 'http://localhost:8000/media'
+        // Verificamos si 'archivo' contiene el prefijo 'http://127.0.0.1:8000/media'
         if (rowData.archivo) {
-            // Si ya tiene el prefijo 'http://localhost:8000/media', agregamos 'usuarios' antes de 'media'
-            if (rowData.archivo.startsWith("http://localhost:8000/media")) {
-                // Reemplazamos 'http://localhost:8000/media' con 'http://localhost:8000/usuarios/media'
-                const archivoUrl = rowData.archivo.replace("http://localhost:8000/media", "http://localhost:8000/usuarios/media");
+            // Si ya tiene el prefijo 'http://127.0.0.1:8000/media', agregamos 'usuarios' antes de 'media'
+            if (rowData.archivo.startsWith("http://127.0.0.1:8000/media")) {
+                // Reemplazamos 'http://127.0.0.1:8000/media' con 'http://127.0.0.1:8000/usuarios/media'
+                const archivoUrl = rowData.archivo.replace("http://127.0.0.1:8000/media", "http://127.0.0.1:8000/usuarios/media");
     
                 return (
                     <a href={archivoUrl} target="_blank" rel="noopener noreferrer">
@@ -52,7 +52,7 @@ export default function TasksTable() {
                 // Si no tiene el prefijo, simplemente concatenamos correctamente
                 return (
                     <a
-                        href={`http://localhost:8000/usuarios/media/${rowData.archivo}`}
+                        href={`http://127.0.0.1:8000/usuarios/media/${rowData.archivo}`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
@@ -72,8 +72,8 @@ export default function TasksTable() {
     // Función para mostrar portada si existe
     const renderPortada = (rowData) => {
         if (rowData.portada) {
-            if (rowData.portada.startsWith("http://localhost:8000/media")) {
-                const portadaUrl = rowData.portada.replace("http://localhost:8000/media", "http://localhost:8000/usuarios/media");
+            if (rowData.portada.startsWith("http://127.0.0.1:8000/media")) {
+                const portadaUrl = rowData.portada.replace("http://127.0.0.1:8000/media", "http://127.0.0.1:8000/usuarios/media");
     
                 return (
                     <a href={portadaUrl} target="_blank" rel="noopener noreferrer">
@@ -84,7 +84,7 @@ export default function TasksTable() {
                 // Si no tiene el prefijo, simplemente concatenamos correctamente
                 return (
                     <a
-                        href={`http://localhost:8000/usuarios/media/${rowData.portada}`}
+                        href={`http://127.0.0.1:8000/usuarios/media/${rowData.portada}`}
                         target="_blank"
                         rel="noopener noreferrer"
                     >

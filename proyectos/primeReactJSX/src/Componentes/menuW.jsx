@@ -12,10 +12,10 @@ function MenuW() {
   const getImageUrl = (imagePath) => {
     if (!imagePath) return "uservacio.png";
 
-    if (imagePath.includes("http://localhost:8000")) {
+    if (imagePath.includes("http://127.0.0.1:8000")) {
       const pathMatch = imagePath.match(/\/media\/(.*)/);
       if (pathMatch) {
-        return `http://localhost:8000/usuarios/media/${pathMatch[1]}`;
+        return `http://127.0.0.1:8000/usuarios/media/${pathMatch[1]}`;
       }
     }
 

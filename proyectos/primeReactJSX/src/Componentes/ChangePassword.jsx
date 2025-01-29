@@ -26,7 +26,7 @@ const ChangePassword = () => {
             const tokens = localStorage.getItem('tokens');
             if (!tokens) throw new Error('No authentication tokens found');
 
-            const response = await fetch('http://localhost:8000/usuarios/api/profile/change-password/', {
+            const response = await fetch('http://127.0.0.1:8000/usuarios/api/profile/change-password/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

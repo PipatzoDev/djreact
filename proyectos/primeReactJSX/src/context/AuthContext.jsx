@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
             const tokens = localStorage.getItem('tokens');
             if (!tokens) throw new Error('No tokens found');
 
-            const response = await fetch('http://localhost:8000/usuarios/api/profile/', {
+            const response = await fetch('http://127.0.0.1:8000/usuarios/api/profile/', {
                 headers: {
                     'Authorization': `Bearer ${JSON.parse(tokens).access}`
                 }
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const login = async (credentials) => {
-        const response = await fetch('http://localhost:8000/usuarios/api/token/', {
+        const response = await fetch('http://127.0.0.1:8000/usuarios/api/token/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const register = async (userData) => {
-        const response = await fetch('http://localhost:8000/usuarios/api/register/', {
+        const response = await fetch('http://127.0.0.1:8000/usuarios/api/register/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

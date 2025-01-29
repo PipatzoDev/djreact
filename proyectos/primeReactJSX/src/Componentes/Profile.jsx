@@ -12,19 +12,19 @@ const Profile = () => {
   const getImageUrl = (imagePath) => {
     if (!imagePath) return "uservacio.png";
     
-    if (imagePath.includes("http://localhost:8000")) {
+    if (imagePath.includes("http://127.0.0.1:8000")) {
       const pathMatch = imagePath.match(/\/media\/(.*)/);
       if (pathMatch) {
-        return `http://localhost:8000/usuarios/media/${pathMatch[1]}`;
+        return `http://127.0.0.1:8000/usuarios/media/${pathMatch[1]}`;
       }
     }
     
     // Si el path es relativo, construir la URL completa
     if (imagePath.startsWith('media/')) {
-      return `http://localhost:8000/usuarios/media/${imagePath.replace(/^media\//, '')}`;
+      return `http://127.0.0.1:8000/usuarios/media/${imagePath.replace(/^media\//, '')}`;
     }
     
-    return `http://localhost:8000/usuarios/media/${imagePath}`;
+    return `http://127.0.0.1:8000/usuarios/media/${imagePath}`;
   };
 
 

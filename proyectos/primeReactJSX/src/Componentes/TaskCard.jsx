@@ -17,8 +17,8 @@ const TaskCard = ({ task }) => {
       className="imgCardHeader"
       alt="Card"
       src={task.portada.replace(
-        "http://localhost:8000/media/",
-        "http://localhost:8000/usuarios/media/"
+        "http://127.0.0.1:8000/media/",
+        "http://127.0.0.1:8000/usuarios/media/"
       )}
     />
   ) : (
@@ -34,8 +34,8 @@ const TaskCard = ({ task }) => {
       className="imgCardHeaderModal"
       alt="Card"
       src={task.portada.replace(
-        "http://localhost:8000/media/",
-        "http://localhost:8000/usuarios/media/"
+        "http://127.0.0.1:8000/media/",
+        "http://127.0.0.1:8000/usuarios/media/"
       )}
     />
   ) : (
