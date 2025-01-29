@@ -4,32 +4,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
-import { FileUpload, FileUploadSelectEvent } from "primereact/fileupload";
+import { FileUpload } from "primereact/fileupload";
 import { Checkbox } from "primereact/checkbox";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { useAuth } from "../context/AuthContext";
 import { createTask, updateTask, getTask, deleteTask } from "../api/tasks.api";
 import { useToast } from "../context/ToastContext";
 
-interface TaskFormData {
-  title: string;
-  description: string;
-  portada?: File | null;
-  extra?: string;
-  done?: boolean;
-  archivo?: File | null;
-}
-
-interface TaskFormPageProps {
-  onTaskCreated?: () => void;
-}
-
-export default function TaskFormPage({ onTaskCreated }: TaskFormPageProps) {
+export default function TaskFormPage({ onTaskCreated }) {
   const { user } = useAuth();
   const toast = useToast();
   const [cargando, setCargando] = useState(false);
   const navigate = useNavigate();
-  const params = useParams<{ id: string }>();
+  const params = useParams();
 
   const {
     control,
@@ -37,14 +24,14 @@ export default function TaskFormPage({ onTaskCreated }: TaskFormPageProps) {
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm<TaskFormData>();
+  } = useForm();
 
   useEffect(() => {
     async function loadTask() {
       if (params.id) {
         try {
           const res = await getTask(params.id);
-          const task = res.data as TaskFormData;
+          const task = res.data;
 
           setValue("title", task.title);
           setValue("description", task.description);
@@ -96,7 +83,7 @@ export default function TaskFormPage({ onTaskCreated }: TaskFormPageProps) {
 
       onTaskCreated?.();
       navigate("/tasks");
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error submitting task:", error);
       toast.current?.show({
         severity: "error",
@@ -109,7 +96,7 @@ export default function TaskFormPage({ onTaskCreated }: TaskFormPageProps) {
     }
   });
 
-  const handleFileSelect = (type: "portada" | "archivo") => (e: FileUploadSelectEvent) => {
+  const handleFileSelect = (type) => (e) => {
     if (e.files && e.files.length > 0) {
       setValue(type, e.files[0]);
     }
@@ -118,7 +105,7 @@ export default function TaskFormPage({ onTaskCreated }: TaskFormPageProps) {
   const handleDelete = async () => {
     if (window.confirm("¿Está seguro de eliminar esta tarea?")) {
       try {
-        await deleteTask(params.id!);
+        await deleteTask(params.id);
         toast.current?.show({
           severity: "success",
           summary: "¡Éxito!",

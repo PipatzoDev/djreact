@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Card } from "primereact/card";
@@ -6,11 +5,11 @@ import "../css/taskformpage.css";
 
 // Utilizamos los tipos existentes del contexto de autenticación
 
-const Profile: React.FC = () => {
+const Profile = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const getImageUrl = (imagePath: string | null | undefined): string => {
+  const getImageUrl = (imagePath) => {
     if (!imagePath) return "uservacio.png";
     
     if (imagePath.includes("http://localhost:8000")) {
@@ -28,19 +27,6 @@ const Profile: React.FC = () => {
     return `http://localhost:8000/usuarios/media/${imagePath}`;
   };
 
-  const renderUserImage = () => (
-    <div className="user-photo">
-      <img
-        src={getImageUrl(user?.imagen)}
-        alt="Foto de usuario"
-        onError={(e) => {
-          const target = e.target as HTMLImageElement;
-          target.onerror = null;
-          target.src = "uservacio.png";
-        }}
-      />
-    </div>
-  );
 
   const handleLogout = () => {
     logout();
@@ -77,7 +63,7 @@ const Profile: React.FC = () => {
             </h2>
             <div className="space-y-3">
               <div className="flex flex-col">
-                {renderUserImage()}
+                {getImageUrl(user.imagen)}
                 <span className="text-sm text-gray-500">Nombre de Usuario:</span>
                 <span className="text-lg font-medium">{user.username}</span>
               </div>

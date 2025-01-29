@@ -4,47 +4,23 @@ import "../css/menuw.css";
 import { useAuth } from "../context/AuthContext";
 import { Button } from "primereact/button";
 
-// Definición de tipos mejorada
-interface User {
-  username: string;
-  imagen?: string | null;
-}
-
-interface AuthContextType {
-  user: User | null;
-  logout: () => void;
-}
-
 function MenuW() {
   const navigate = useNavigate();
-  const { user, logout }: AuthContextType = useAuth();
+  const { user, logout } = useAuth();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const getImageUrl = (imagePath: string | null | undefined): string => {
+  const getImageUrl = (imagePath) => {
     if (!imagePath) return "uservacio.png";
-    
+
     if (imagePath.includes("http://localhost:8000")) {
       const pathMatch = imagePath.match(/\/media\/(.*)/);
       if (pathMatch) {
         return `http://localhost:8000/usuarios/media/${pathMatch[1]}`;
       }
     }
-    
+
     return imagePath;
   };
-
-  const renderUserImage = (className: string = "") => (
-    <img
-      className={`img-header p-1 ${className}`}
-      src={getImageUrl(user?.imagen)}
-      alt="Foto de usuario"
-      onError={(e) => {
-        const target = e.target as HTMLImageElement;
-        target.onerror = null; // Previene bucles infinitos
-        target.src = "uservacio.png";
-      }}
-    />
-  );
 
   const miperfil = () => {
     w3_close();
@@ -61,13 +37,13 @@ function MenuW() {
     setIsSidebarOpen(false);
   };
 
-  const closeSidebarOnOverlayClick = (e: React.MouseEvent<HTMLDivElement>): void => {
-    if ((e.target as HTMLDivElement).id === "overlay") {
+  const closeSidebarOnOverlayClick = (e) => {
+    if (e.target.id === "overlay") {
       setIsSidebarOpen(false);
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent): void => {
+  const handleKeyDown = (event) => {
     if (event.key === "Escape") {
       setIsSidebarOpen((prevState) => !prevState);
     }
@@ -179,31 +155,41 @@ function MenuW() {
             Monedas
           </Link>
           <div className="user-info">
-          <div className="user-photo">
-            {renderUserImage()}
-          </div>
-          <div className="user-details">
-            <p className="user-name">{user?.username}</p>
-            <p className="user-role">Administrador</p>
-          </div>
-          <div style={{ width: "100%" }}>
-            <div style={{ float: "right", display: "flex" }}>
-              <Button
-                label="Mi Perfil"
-                icon="pi pi-user"
-                onClick={miperfil}
-                style={{
-                  borderRadius: "10px",
+            <div className="user-photo">
+              <img
+                className='img-header p-1'
+                src={getImageUrl(user?.imagen)}
+                alt="Foto de usuario"
+                onError={(e) => {
+                  const target = e.target;
+                  target.onerror = null; // Previene bucles infinitos
+                  target.src = "uservacio.png";
                 }}
-                severity="danger"
-                text
-                raised
               />
             </div>
+            <div className="user-details">
+              <p className="user-name">{user?.username}</p>
+              <p className="user-role">Administrador</p>
+            </div>
+            <div style={{ width: "100%" }}>
+              <div style={{ float: "right", display: "flex" }}>
+                <Button
+                  label="Mi Perfil"
+                  icon="pi pi-user"
+                  onClick={miperfil}
+                  style={{
+                    borderRadius: "10px",
+                  }}
+                  severity="danger"
+                  text
+                  raised
+                />
+              </div>
+            </div>
           </div>
-        </div>
         </nav>
       </div>
+
       {/* Contenido principal */}
 
       <div style={{ background: "#3B3C36" }} className="encabezado">
@@ -219,7 +205,16 @@ function MenuW() {
         <div style={{ marginLeft: "auto", marginRight: "20px" }}>
           <div className="">
             <a style={{ marginRight: "5px" }} onClick={miperfil}>
-              {renderUserImage()}
+            <img
+                className='img-header p-1'
+                src={getImageUrl(user?.imagen)}
+                alt="Foto de usuario"
+                onError={(e) => {
+                  const target = e.target;
+                  target.onerror = null; // Previene bucles infinitos
+                  target.src = "uservacio.png";
+                }}
+              />
             </a>
             <label>{user?.username}</label>
 

@@ -1,27 +1,25 @@
-import React, { useState, FormEvent } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { LoginCredentials } from "../types/auth";
 import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
 import { Card } from "primereact/card";
 import { useToast } from "../context/ToastContext";
 import "../css/form.css";
 
-
-const Login: React.FC = () => {
+const Login = () => {
   const toast = useToast();
-  const [credentials, setCredentials] = useState<LoginCredentials>({
+  const [credentials, setCredentials] = useState({
     username: "",
     password: "",
   });
-  const [error, setError] = useState<string>("");
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const { login } = useAuth();
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
 
@@ -38,7 +36,7 @@ const Login: React.FC = () => {
     }
   };
 
-  const showError = (): void => {
+  const showError = () => {
     toast.current?.show({
       severity: "error",
       summary: "¡Error al ingreso!",
@@ -47,7 +45,7 @@ const Login: React.FC = () => {
     });
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCredentials((prev) => ({
       ...prev,
@@ -71,10 +69,7 @@ const Login: React.FC = () => {
               Portal P2H
             </h2>
             <div className="form-container" style={{ boxShadow: "none" }}>
-              <form
-                onSubmit={handleSubmit}
-                className="block text-sm font-medium"
-              >
+              <form onSubmit={handleSubmit} className="block text-sm font-medium">
                 <div className="mb-3">
                   <input
                     type="text"

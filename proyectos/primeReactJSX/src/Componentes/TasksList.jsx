@@ -2,28 +2,10 @@ import { useEffect, useState } from "react";
 import { getAllTasks } from "../api/tasks.api";
 import TaskCard from "./TaskCard";
 
-// Define API response type correctly
-interface GetAllTasksResponse {
-  data: Task[];
-}
-
-// Updated interface for Task to match the API response
-interface Task {
-  id: string; // Ensure it's always a string
-  title?: string; // Optional to prevent undefined errors
-  description?: string;
-  dateNow?: string;
-  created_at?: string;
-  creator?: string;
-  done?: boolean;
-  archivo?: string;
-  portada?: string;
-}
-
 export function TasksList() {
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     async function loadTasks() {
@@ -32,12 +14,12 @@ export function TasksList() {
 
       try {
         const res = await getAllTasks(); // API Call
-        const data: GetAllTasksResponse = res; // Ensure correct type
+        const data = res; // Ensure correct type
 
         // Validate that res.data exists and is an array
         if (Array.isArray(data.data)) {
           // Convert `id` to string and provide default values
-          const formattedTasks: Task[] = data.data.map((task) => ({
+          const formattedTasks = data.data.map((task) => ({
             id: String(task.id), // Ensure id is a string
             title: task.title ?? "Sin título", // Default value for title
             description: task.description ?? "", // Default empty string
