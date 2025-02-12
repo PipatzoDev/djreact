@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .header {
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            color: #ffffff;
+            margin: 0;
+            font-size: 24px;
+        }
+        .content {
+            padding: 30px 20px;
+            color: #333333;
+            line-height: 1.6;
+        }
+        .reset-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #ff0000;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .footer {
+            background-color: #000000;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+        .warning {
+            color: #666666;
+            font-size: 12px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Restablecimiento de Contraseña</h1>
+        </div>
+        
+        <div class="content">
+            <p>Hola,</p>
+            
+            <p>Hemos recibido una solicitud para restablecer la contraseña de tu cuenta. Si no has sido tú quien ha realizado esta solicitud, puedes ignorar este mensaje.</p>
+            
+            <p>Para crear una nueva contraseña, haz clic en el siguiente botón:</p>
+            
+            <center>
+                <a href="{{reset_url}}" class="reset-button">
+                    Restablecer mi contraseña
+                </a>
+            </center>
+            
+            <p>O copia y pega el siguiente enlace en tu navegador:</p>
+            <p style="word-break: break-all; color: #666666;">{{reset_url}}</p>
+            
+            <div class="warning">
+                <p>Por seguridad, este enlace expirará en 24 horas. Si necesitas un nuevo enlace, puedes solicitarlo nuevamente en nuestra página web.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Este es un correo automático, por favor no respondas a este mensaje.</p>
+            <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+        </div>
+    </div>
+</body>
+</html>

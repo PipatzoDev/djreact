@@ -1,9 +1,10 @@
 from rest_framework import serializers
 from .models import Task
-
+from usuarios.serializers import CustomUserSerializer
 
 # In serializers.py
 class TaskSerializer(serializers.ModelSerializer):
+    creator = CustomUserSerializer()
     class Meta:
         model = Task
         fields = '__all__'

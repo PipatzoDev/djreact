@@ -1,3 +1,4 @@
+import { InputText } from 'primereact/inputtext';
 import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -48,27 +49,27 @@ const ChangePassword = () => {
     };
     return (
         <div className="min-h-screen  py-12 px-4">
-            <div className="max-w-md mx-auto  rounded-lg shadow-lg p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Cambiar Contraseña</h2>
+            <div className="max-w-md mx-auto bg-gray-800 border border-gray-700 rounded-lg shadow-lg p-6">
+                <h2 className="text-2xl letraop font-bold text-gray-900 mb-6">Cambiar Contraseña</h2>
 
                 {error && (
-                    <div className="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    <div className="mb-4 bg-black border border-red-400 text-red-700 px-4 py-3 rounded">
                         {error}
                     </div>
                 )}
 
                 {success && (
-                    <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+                    <div className="mb-4 bg-gray-100 border border-green-400 text-green-700 px-4 py-3 rounded">
                         {success}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium ">
                             Contraseña Actual
                         </label>
-                        <input
+                        <InputText
                             type="password"
                             value={formData.old_password}
                             onChange={(e) => setFormData({...formData, old_password: e.target.value})}
@@ -78,10 +79,10 @@ const ChangePassword = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium ">
                             Nueva Contraseña
                         </label>
-                        <input
+                        <InputText
                             type="password"
                             value={formData.new_password}
                             onChange={(e) => setFormData({...formData, new_password: e.target.value})}
@@ -91,10 +92,10 @@ const ChangePassword = () => {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-gray-700">
+                        <label className="block text-sm font-medium ">
                             Confirmar Nueva Contraseña
                         </label>
-                        <input
+                        <InputText
                             type="password"
                             value={formData.confirm_password}
                             onChange={(e) => setFormData({...formData, confirm_password: e.target.value})}
@@ -106,7 +107,7 @@ const ChangePassword = () => {
                     <div className="flex gap-4">
                         <button
                             type="submit"
-                            className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700"
+                            className="flex-1 bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700"
                         >
                             Cambiar Contraseña
                         </button>

@@ -9,5 +9,5 @@ router.register(r'tasks', views.TaskView, 'tasks')
 
 urlpatterns = [
     path("api/v1/", include(router.urls)), 
-
+    path('api/v1/tasks/user-tasks/<int:user_id>/', views.get_user_tasks, name='user-tasks'),
 ]

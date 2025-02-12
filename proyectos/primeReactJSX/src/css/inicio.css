@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+.h-sombras{
+  box-shadow: 7px 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+.h-sombras:hover{
+  box-shadow: 0px 0px 20px rgb(255, 0, 0);
+
+}
+
+

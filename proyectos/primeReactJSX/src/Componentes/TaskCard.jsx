@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 import { Dialog } from 'primereact/dialog';
+import { useAuth } from "../context/AuthContext";
 
 import "../css/taskformpage.css";
 import "../css/cardinicio.css";
 import "../css/imagenes.css";
 
 const TaskCard = ({ task }) => {
+  const { user } = useAuth();
   const [visible, setVisible] = useState(false);
   const navigate = useNavigate();
 
@@ -54,13 +56,16 @@ const TaskCard = ({ task }) => {
           icon="pi pi-eye"
           onClick={() => setVisible(true)}
         ></Button>
-        <Button
-          label="Editar"
-          severity="secondary"
-          icon="pi pi-pen-to-square"
-          style={{ marginLeft: "0.5em" }}
-          onClick={() => navigate(`/tasks/${task.id}`)}
-        />
+        {task.creator == user.id && (
+          <Button
+            label="Editar"
+            severity="secondary"
+            icon="pi pi-pen-to-square"
+            style={{ marginLeft: "0.5em" }}
+            onClick={() => navigate(`/tasks/${task.id}`)}
+
+        />)}
+        
       </div>
     </>
   );
@@ -121,7 +126,7 @@ const TaskCard = ({ task }) => {
         header={header}
         className="font-bold shadow card-inicio"
       >
-        <label className="text-gray-700">Creado por: {task.creator}</label>
+        <label className="text-red-700">Creado por: {task.creator}</label>
         <div style={{ float: 'right' }}>
           {task.archivo ? <i className="pi pi-file"></i> : 'Sin Archivo'}
         </div>

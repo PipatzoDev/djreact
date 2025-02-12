@@ -6,7 +6,6 @@ import "primereact/resources/themes/lara-dark-teal/theme.css";
 import { BrowserRouter } from "react-router-dom";
 import { PrimeReactProvider } from "primereact/api";
 
-
         
 
 createRoot(document.getElementById("root")).render(

@@ -16,21 +16,75 @@ import os , usuarios
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import environ
+
+env = environ.Env(
+    DEBUG=(bool, False),
+    SECRET_KEY=(str, None),
+    DB_NAME=(str, 'postgres'),
+    DB_USER=(str, 'postgres'),
+    DB_PASSWORD=(str, ''),
+    DB_HOST=(str, '127.0.0.1'),
+    DB_PORT=(str, '5432'),
+    EMAIL_USER=(str, None),
+    EMAIL_PASSWORD=(str, None)
+)
+
+# Leer el archivo .env
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY =  os.environ.get('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env('DEBUG')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG')
+ALLOWED_HOSTS = ["pipatzo.pw", "www.pipatzo.pw", "127.0.0.1","localhost"]
 
-ALLOWED_HOSTS = ['*']
+#SECURE_SSL_REDIRECT = True
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
+#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
+MEGA_EMAIL = env('MEGA_EMAIL')
+MEGA_PASSWORD = env('MEGA_PASSWORD')
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_POST = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
 
 # Application definition
+
+
+# Configuración básica para archivos
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+
+# Tamaños máximos de archivo
+
+MEDIA_CHUNK_SIZE = 2621440  # 2.5MB por chunk
+
+# Configuración de CORS para permitir subidas grandes
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'content-disposition',
+    'content-length',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -44,7 +98,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'tasks',
     'usuarios',
-    
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -84,15 +138,14 @@ WSGI_APPLICATION = 'django_api.wsgi.application'
 
 from dotenv import load_dotenv
 load_dotenv()  # Carga las variables desde el archivo .env
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'default_db'),
-        'USER': os.environ.get('DB_USER', 'default_user'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', ''),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -128,17 +181,20 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+#CSRF_TRUSTED_ORIGINS = [
+ #   "https://pipatzo.pw",
+ #   "https://www.pipatzo.pw",
+#]
+#CSRF_TRUSTED_ORIGINS.append("http://127.0.0.1:8000")
 
-STATIC_URL = 'static/'
+    
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = ['http://localhost:5173', "http://127.0.0.1:5173",'http://localhost:3000']
+CORS_ALLOWED_ORIGINS = ['http://45.236.130.73','http://localhost:5173', "http://127.0.0.1:5173",'http://localhost:3000']
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -192,12 +248,21 @@ SIMPLE_JWT = {
 
 # settings.py
 
-
-
-# Configuración de directorios de medios
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'usuarios.CustomUser'  # 'miapp' es el nombre de tu aplicación y CustomUser es el modelo que definimos
 
+# Configuración de Channels
+ASGI_APPLICATION = 'django_api.asgi.application'
+
+# Configuración para archivos grandes
+DATA_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 52428800  # 50MB
+
+# Permisos para nuevos directorios
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o755
+FILE_UPLOAD_PERMISSIONS = 0o644
 

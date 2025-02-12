@@ -8,12 +8,12 @@
   position: fixed;
   width: 100%;
   z-index: 1;
+  
 }
 
 .img-header {
   height: 45px;
   width: 45px;
-  top: 0;
   border-radius: 50%;
 }
 .img-header:hover {
@@ -24,36 +24,23 @@
   padding-left: 45%;
 }
 
-/* Estilos para la sección de información del usuario */
-.user-info {
-  display: flex;
-  align-items: center;
-  background-color: #444;
-  padding: 10px;
-  border-radius: 10px;
-  border-top: 2px solid #ff0000;
-  margin-top: auto; /* Esto lo coloca al final del sidebar */
-}
+
 
 .usercerrado {
   margin-top: auto;
   margin-bottom: 30px; /* Esto lo coloca al final del sidebar */
 }
 
-.user-photo {
-  margin-right: 15px;
-}
 
-.user-photo img {
-  width: 70px; /* Tamaño de la imagen */
-  height: 70px; /* Tamaño de la imagen */
-  border-radius: 15%; /* Hace la imagen redonda */
-  box-shadow: 0 10px 5px rgba(0, 0, 0, 0.5); /* Sombra para el efecto */
-  object-fit: cover; /* Asegura que la imagen se ajuste al contorno sin distorsionarse */
+
+.pipamenu:hover{
+  background-color: #ff0000;
+  cursor:pointer;
 }
 
 .user-details {
   display: flex;
+
   flex-direction: column;
 }
 

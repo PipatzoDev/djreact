@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { Button } from "primereact/button";
 import { ProgressSpinner } from "primereact/progressspinner";
-import { Card } from "primereact/card";
 import { useToast } from "../context/ToastContext";
 import "../css/form.css";
+import "../css/login.css";
+import Scene from '../Componentes/objeto3d';
+import { Button } from "primereact/button";
+import Register from "./Register";
 
 const Login = () => {
+  const [isEditing, setIsEditing] = useState(false);
   const toast = useToast();
   const [credentials, setCredentials] = useState({
     username: "",
@@ -19,31 +22,39 @@ const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+      if(isEditing){
+        return <Register />
+      }else{
+        return <Login />
+      }
+  };
+
   const handleSubmit = async (e) => {
     setIsLoading(true);
     e.preventDefault();
-
     try {
       await login(credentials);
+      toast.current.show({severity:'success', summary: 'Bienvenido de nuevo', detail:`Hola, ${credentials.username}`, life: 12000});
       navigate("/");
     } catch (err) {
       const errorMessage =
         err instanceof Error ? err.message : "Error en el inicio de sesión";
       setError(errorMessage);
-      showError();
+        toast.current?.show({
+          severity: "error",
+          summary: "¡Error!",
+          detail: 'Usuario o contraseña incorrectos',
+          life: 15000,
+        });
+      
     } finally {
-      setIsLoading(false);
+      setIsLoading(false);  
     }
   };
 
-  const showError = () => {
-    toast.current?.show({
-      severity: "error",
-      summary: "¡Error al ingreso!",
-      detail: error,
-      life: 7000,
-    });
-  };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -53,47 +64,60 @@ const Login = () => {
     }));
   };
 
+ 
   return (
     <>
-      <div className="div-container">
-        <Card className="font-bold card-perso" style={{ height: "400px" }}>
-          <div className="p-8 rounded-lg w-full max-w-md">
-            <h2
+   
+     <div style={{ width: '100%', height: '100vh',  zIndex:'-1', display:'fixed', position:'fixed'}}>
+      <Scene />
+    </div>
+      <div className="container phone-only">
+        <div className="wrapper">
+          {/* Left empty space */}
+          <div className="emptySpace"></div>
+
+          {/* Login form */}
+          <div className="loginForm">
+          <h2
               className="text-2xl font-bold mb-6 text-center"
               style={{
                 borderRadius: "10px",
                 borderLeft: "3px solid red",
                 borderRight: "3px solid red",
+                marginBottom: "40px",
               }}
             >
-              Portal P2H
+             {isEditing ?  "Registro" : "Portal P2H"  }
             </h2>
-            <div className="form-container" style={{ boxShadow: "none" }}>
-              <form onSubmit={handleSubmit} className="block text-sm font-medium">
-                <div className="mb-3">
-                  <input
+            {isEditing ? <Register /> : 
+            <form onSubmit={handleSubmit}>
+              <div className="inputGroup">
+                <label htmlFor="user" className="label">
+                  Usuario
+                </label>
+                <input
                     type="text"
                     name="username"
-                    placeholder="Usuario"
                     value={credentials.username}
                     onChange={handleInputChange}
                     className="form-control hover-pipa"
                     required
                   />
-                </div>
-                <div className="mb-6">
-                  <input
+              </div>
+              <div className="inputGroup">
+                <label htmlFor="password" className="label">
+                  Contraseña
+                </label>
+                <input
                     type="password"
                     name="password"
-                    placeholder="Contraseña"
                     value={credentials.password}
                     onChange={handleInputChange}
                     className="form-control hover-pipa"
                     required
                   />
-                </div>
-                <div className="flex items-center justify-between mb-6">
-                  {isLoading ? (
+              </div>
+              {isLoading ? (
                     <button
                       type="submit"
                       className="form-control hover-pipa"
@@ -114,18 +138,28 @@ const Login = () => {
                       Iniciar Sesión
                     </button>
                   )}
-                </div>
-                <div className="text-center">
-                  <Link to="/register">
-                    <Button className="form-control hover-pipa">
-                      Registrarme
-                    </Button>
-                  </Link>
-                </div>
-              </form>
+            </form>
+            }
+            <div className="linkContainer">
+            <Button
+                type="button"
+                icon="pi pi-lock"
+                className="p-button-rounded p-button-text p-button-danger"
+                onClick={() => navigate('/password-reset')}
+                label="¿Olvidaste tu contraseña?"
+              />
+          
+              <Button
+                type="button"
+                icon={isEditing ? "pi pi-arrow-left" : "pi pi-user-plus"}
+                className={`p-button-rounded p-button-text ${isEditing ? 'p-button-danger' : 'p-button-secondary'}`}
+                onClick={toggleEdit}
+                label={isEditing ?"Volver al login" : "Crear cuenta"}
+       
+              />
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </>
   );
